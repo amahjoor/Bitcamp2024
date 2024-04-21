@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
+import "../app/globals.css";
 
 const Home = () => {
   // State for uploaded image
@@ -38,7 +39,7 @@ const Home = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h2>test1</h2>
+      <h2 className="flex min-h-screen flex-col items-center justify-center p-24">test1</h2>
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
       <h2>test2</h2>
       </div>
