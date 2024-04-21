@@ -1,10 +1,10 @@
-import React, { ChangeEvent, useState } from 'react';
-import Image from 'next/image';
+import React, { ChangeEvent, useState, useRef } from 'react';
 import "../app/globals.css";
 
 const Home = () => {
   // State for uploaded image
   const [image, setImage] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Function to handle file drop
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -37,6 +37,17 @@ const Home = () => {
     reader.readAsDataURL(file);
   };
 
+  // Function to handle file input click
+  const handleFileInputClick = () => {
+    inputRef.current?.click();
+  };
+
+  // Function to handle file input change
+  const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0];
+    handleImageUpload(file);
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <h2 className="flex min-h-screen flex-col items-center justify-center p-24">test1</h2>
@@ -49,8 +60,14 @@ const Home = () => {
         className="h-48 w-full flex items-center justify-center border border-gray-300 rounded-lg mt-8 bg-black text-white"
         onDrop={handleDrop}
         onDragOver={handleDragOver}
+        onClick={handleFileInputClick} // Add onClick event handler
       >
-        <input type="file" onChange={(e) => handleImageUpload(e.target.files![0])} className="hidden" />
+        <input
+          ref={inputRef}
+          type="file"
+          onChange={handleFileInputChange}
+          className="hidden"
+        />
         <label htmlFor="fileInput">Drag and drop your files here or click to upload</label>
       </div>
 
@@ -69,15 +86,6 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          By{' '}
-          <Image
-            src="/vercel.svg"
-            alt="Vercel Logo"
-            className="dark:invert"
-            width={100}
-            height={24}
-            priority
-          />
         </a>
       </div>
     </main>
